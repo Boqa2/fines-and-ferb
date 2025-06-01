@@ -1,0 +1,17 @@
+@media (max-width: 400px) {
+  .phone {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    border: 0;
+  }
+  .screen {
+    border-radius: 0;
+  }
+  .notch {
+    display: none;
+  }
+  .swipe {
+    display: none;
+  }
+}

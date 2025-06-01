@@ -84,7 +84,7 @@ body {
   width: 24%;
 }
 .heading {
-  font-family: "PaulBold";
+  font-family: "ccVarite";
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -94,6 +94,7 @@ body {
 }
 .header:nth-child(1) {
   color: yellow;
+  font-size: 21px;
 }
 .header:nth-child(2) {
   font-family: sans-serif;
@@ -119,7 +120,7 @@ body {
   display: inline-block;
   background-color: #ffd447; /* жёлтая верхняя часть */
   font-family: "ccVarite";
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 900;
   color: #303071; /* тёмно-синий текст */
   border: none;

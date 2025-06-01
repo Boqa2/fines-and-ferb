@@ -16,8 +16,7 @@ const heroes = document.querySelector(".herois"); //это для движени
 const timeEle = document.querySelector(".timer");
 const scoreEle = document.querySelectorAll(".score");
 const gameContentEle = document.querySelector(".game-content");
-const playGame =document.querySelector('.play-game')
-
+const playGame = document.querySelector(".play-game");
 
 let currentPosition = false;
 let timerInterval;
@@ -26,6 +25,8 @@ let currentTimer = 20;
 let gameOver = false;
 let jumpInProgress = false;
 let pointSpawnInterval;
+let maxWidth = 800;
+
 const activePoints = [];
 
 const chHero = [
@@ -76,15 +77,15 @@ function gamerChoose(gamer) {
       break;
     case "perri":
       heroEle.src = `assets/image/${chHero[3].source[1]}`;
-      backgroundEle.src = `assets/image/tower.jpg`;
+      backgroundEle.src = `assets/image/longTower.png`;
       heroes.style.width = "23%";
       heroes.style.height = "31%";
       break;
     default:
       console.log("Unknown character");
   }
+  animateBackground();
 
-  // Сброс состояния
   currentPosition = true;
   gameOver = false;
   score = 0;
@@ -94,7 +95,6 @@ function gamerChoose(gamer) {
   firstEle.classList.add("hidden");
   secondEle.classList.remove("hidden");
 
-  // Запуск таймера
   timerInterval = setInterval(() => {
     timeEle.textContent = currentTimer;
     currentTimer--;
@@ -128,15 +128,14 @@ function createMovingPoint() {
   movePointLeft(pointImg);
 }
 
-// Движение поинта влево
 function movePointLeft(point) {
   let posX = parseFloat(point.style.left);
 
   function frame() {
     if (gameOver) return;
 
-    posX -= 2; // скорость
-    point.style.left = `${posX - 800}px`;
+    posX -= 2;
+    point.style.left = `${posX - maxWidth}px`;
 
     checkPointCollision(point);
 
@@ -153,7 +152,6 @@ function movePointLeft(point) {
   requestAnimationFrame(frame);
 }
 
-// Проверка столкновения
 function checkPointCollision(point) {
   const heroRect = heroEle.getBoundingClientRect();
   const pointRect = point.getBoundingClientRect();
@@ -172,7 +170,6 @@ function checkPointCollision(point) {
   }
 }
 
-// Обновление счёта
 function updateScore() {
   scoreEle.forEach((el) => (el.textContent = score));
 }
@@ -195,10 +192,8 @@ function handleSwipe() {
   if (Math.abs(diff) < 30 || jumpInProgress || gameOver) return;
 
   if (diff > 0) {
-    // свайп вверх — прыжок
     jumpHeroUp();
   } else {
-    // свайп вниз — присед
     jumpHeroDown();
   }
 }
@@ -211,7 +206,7 @@ function jumpHeroUp() {
   heroes.style.top = `${currentTop - 30}px`;
 
   setTimeout(() => {
-    heroes.style.top = `25%`; // вернуться вниз
+    heroes.style.top = `25%`;
     jumpInProgress = false;
   }, 300);
 }
@@ -221,24 +216,64 @@ function jumpHeroDown() {
 
   heroes.style.transition = "top 0.3s";
   const currentTop = parseInt(heroes.style.top || "300");
-  heroes.style.top = `${currentTop + 100}px`; // присед
+  heroes.style.top = `${currentTop + 100}px`;
 
   setTimeout(() => {
-    heroes.style.top = `25%`; // обратно
+    heroes.style.top = `25%`;
     jumpInProgress = false;
   }, 300);
 }
 
-// Запуск при клике
 secondEle.addEventListener("click", jumpHeroUp);
 
 secondEle.addEventListener("dblclick", jumpHeroDown);
+
+let backgroundOffset = 0;
+
+function animateBackground() {
+  if (gameOver) return;
+
+  backgroundOffset -= 0.8;
+  backgroundEle.style.transform = `translateX(${backgroundOffset}px)`;
+
+  requestAnimationFrame(animateBackground);
+}
 
 function endGame() {
   gameOver = true;
   activePoints.forEach((p) => p.remove());
   activePoints.length = 0;
-  console.log(1222);
-  threedEle.classList.remove("hidden")
-  secondEle.classList.add("hidden")
+  threedEle.classList.remove("hidden");
+  secondEle.classList.add("hidden");
 }
+function playAgain() {
+  let gamer = localStorage.getItem("user");
+  gamerChoose(`${gamer}`);
+  score = 0;
+  currentTimer = 20;
+  console.log(gamer);
+  updateScore();
+  timeEle.textContent = currentTimer;
+  gameOver = false;
+  backgroundOffset = 0;
+  backgroundEle.style.transform = `translateX(0px)`;
+  animateBackground();
+}
+window.addEventListener("resize", () => {
+  const width = window.innerWidth;
+  if (width < 400) {
+    maxWidth = 10;
+  } else {
+    maxWidth = 800;
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (gameOver || jumpInProgress) return;
+
+  if (e.key === "ArrowUp") {
+    jumpHeroUp();
+  } else if (e.key === "ArrowDown") {
+    jumpHeroDown();
+  }
+});
