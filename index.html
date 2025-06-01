@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/index.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="icon" href="assets/image/PAF_S5_LOGO.png" />
+    <link rel="stylesheet" href="css/responsive.css">
+  </head>
+  <body>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="vid hidden">
+          <span onclick="" class="btn-volume">
+            <i class="bi bi-volume-mute-fill"></i>
+          </span>
+          <video
+            muted
+            loop
+            autoplay
+            class="video"
+            src="assets/video/vertical.mp4"
+          ></video>
+        </div>
+        <div class="first">
+          <div class="start-game">
+            <div class="content-logo">
+              <img
+                src="assets/image/PAF_S5_LOGO.png"
+                class="logo-type"
+                alt=""
+              />
+            </div>
+            <div class="wid">
+              <div class="heading">
+                <p class="header">
+                  Take your next summer adventure with one of the Phineas and
+                  Ferb Gang.
+                </p>
+                <p class="header">
+                  Navigate to collect as many items as you can before the time
+                  runs out!
+                </p>
+              </div>
+              <div class="iq">
+                <button  class="play-game">
+                  Play Now
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="choose-gamer hidden">
+            <div class="g-logo">
+              <img src="assets/image/PAF_S5_LOGO.png" alt="" />
+            </div>
+            <div>
+              <p class="character">Choose Your Character!</p>
+            </div>
+            <div
+              onclick="gamerChoose('phines')"
+              class="gamers"
+              data-persons="phines"
+            >
+              <img class="imgs phines" src="assets/image/Phineas.png" alt="" />
+            </div>
+            <div
+              onclick="gamerChoose('ferb')"
+              class="gamers"
+              data-persons="ferb"
+            >
+              <img class="imgs ferb" src="assets/image/ferb.png" alt="" />
+            </div>
+            <div
+              onclick="gamerChoose('candice')"
+              class="gamers"
+              data-persons="candice"
+            >
+              <img class="imgs candace" src="assets/image/Candace.png" alt="" />
+            </div>
+            <div
+              onclick="gamerChoose('perri')"
+              class="gamers"
+              data-persons="agent-p"
+            >
+              <img class="imgs agent-p" src="assets/image/Agent P.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="second hidden">
+          <div class="atrs">
+            <div class="time">
+              <span>Time</span>
+              <span class="timer">20</span>
+            </div>
+            <div class="atr-logo">
+              <img src="assets/image/PAF_S5_LOGO.png" alt="" />
+            </div>
+            <div class="scores">
+              <span>score</span>
+              <span class="score">10</span>
+            </div>
+          </div>
+          <div class="game">
+            <img
+              class="background"
+              src="assets/image/Backyard-Background.png"
+              alt=""
+            />
+            <div class="game-content">
+              <div class="herois">
+                <img
+                  class="hero"
+                  src="assets/image/PAF_S5_Poses_Ferb_Superhero.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="threed hidden">
+          <div class="ends">
+            <div class="contnent-logo">
+              <img class="logo" src="assets/image/PAF_S5_LOGO.png" alt="" />
+              <img
+                class="texts-of-logo"
+                src="assets/image/TYPE copy.png"
+                alt=""
+              />
+            </div>
+            <div class="content">
+              <div class="cont-score">
+                <div class="i">
+                  <span>Score:</span>
+                  <span class="score"> 11</span>
+                </div>
+                <p>
+                  Tune in for more adventures with your favorite characters!
+                </p>
+              </div>
+              <div class="contnent-btn">
+                <button class="btns play-again">Play aGAin</button>
+                <a
+                  class="btns"
+                  target="_blank"
+                  href="https://www.disneyplus.com/browse/entity-dd2d65ba-4473-4bec-885d-6b71ee699820"
+                  >learn More</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swipe"></div>
+    </div>
+  </body>
+</html>
