@@ -16,7 +16,7 @@ const heroes = document.querySelector(".herois"); //это для движени
 const timeEle = document.querySelector(".timer");
 const scoreEle = document.querySelectorAll(".score");
 const gameContentEle = document.querySelector(".game-content");
-const playGame = document.querySelector(".play-game");
+const playAgain = document.querySelector(".play-again");
 
 let currentPosition = false;
 let timerInterval;
@@ -25,7 +25,9 @@ let currentTimer = 20;
 let gameOver = false;
 let jumpInProgress = false;
 let pointSpawnInterval;
-let maxWidth = 800;
+let maxWidth = 900;
+let gamerLocal = localStorage.getItem("user");
+let autoStartCurrent = false;
 
 const activePoints = [];
 
@@ -58,22 +60,25 @@ const points = [
   "balls.png",
 ];
 
-playGame.addEventListener("click", () => {
+function playGames() {
   startGameEle.classList.add("hidden");
   chooseGamerEle.classList.remove("hidden");
-});
+}
 
 function gamerChoose(gamer) {
   localStorage.setItem("user", gamer);
   switch (gamer) {
     case "candice":
       heroEle.src = `assets/image/${chHero[0].source}`;
+      backgroundEle.src = `assets/image/longer.jpg`;
       break;
     case "ferb":
       heroEle.src = `assets/image/${chHero[1].source}`;
+      backgroundEle.src = `assets/image/longer.jpg`;
       break;
     case "phines":
       heroEle.src = `assets/image/${chHero[2].source}`;
+      backgroundEle.src = `assets/image/longer.jpg`;
       break;
     case "perri":
       heroEle.src = `assets/image/${chHero[3].source[1]}`;
@@ -86,11 +91,13 @@ function gamerChoose(gamer) {
   }
   animateBackground();
 
+  autoStartCurrent = true;
   currentPosition = true;
   gameOver = false;
   score = 0;
   currentTimer = 20;
   updateScore();
+  autoStartCurrent = true;
 
   firstEle.classList.add("hidden");
   secondEle.classList.remove("hidden");
@@ -107,7 +114,7 @@ function gamerChoose(gamer) {
 
   pointSpawnInterval = setInterval(() => {
     if (!gameOver) createMovingPoint();
-  }, 1000);
+  }, 1300);
 }
 
 function createMovingPoint() {
@@ -117,9 +124,9 @@ function createMovingPoint() {
   }`;
   pointImg.classList.add("point");
   pointImg.style.position = "absolute";
-  pointImg.style.top = `${Math.random() * (window.innerHeight * 0.3)}px`;
+  pointImg.style.top = `${Math.random() * (window.innerHeight * 0.01)}px`;
   pointImg.style.left = `${window.innerWidth}px`;
-  pointImg.style.width = "70px";
+  pointImg.style.width = "80px";
   pointImg.style.height = "70px";
 
   gameContentEle.appendChild(pointImg);
@@ -130,12 +137,18 @@ function createMovingPoint() {
 
 function movePointLeft(point) {
   let posX = parseFloat(point.style.left);
+  let frameCount = 0;
 
   function frame() {
     if (gameOver) return;
 
     posX -= 2;
+    frameCount++;
+
+    const waveY = 30 * Math.sin(frameCount * 0.05); // колебание вверх-вниз
+
     point.style.left = `${posX - maxWidth}px`;
+    point.style.transform = `translateY(${waveY}px)`; // колебание
 
     checkPointCollision(point);
 
@@ -153,6 +166,8 @@ function movePointLeft(point) {
 }
 
 function checkPointCollision(point) {
+  if (point.dataset.collected === "true") return; // уже собрана
+
   const heroRect = heroEle.getBoundingClientRect();
   const pointRect = point.getBoundingClientRect();
 
@@ -162,9 +177,14 @@ function checkPointCollision(point) {
     heroRect.right > pointRect.left &&
     heroRect.left < pointRect.right
   ) {
-    point.remove();
+    point.dataset.collected = "true"; // помечаем как собранную
+    point.classList.add("fade-out");
+
+    setTimeout(() => point.remove(), 300);
+
     const index = activePoints.indexOf(point);
     if (index > -1) activePoints.splice(index, 1);
+
     score++;
     updateScore();
   }
@@ -174,59 +194,25 @@ function updateScore() {
   scoreEle.forEach((el) => (el.textContent = score));
 }
 
-let touchStartY = 0;
-let touchEndY = 0;
-
-secondEle.addEventListener("touchstart", (e) => {
-  touchStartY = e.changedTouches[0].clientY;
-});
-
-secondEle.addEventListener("touchend", (e) => {
-  touchEndY = e.changedTouches[0].clientY;
-  handleSwipe();
-});
-
-function handleSwipe() {
-  const diff = touchStartY - touchEndY;
-
-  if (Math.abs(diff) < 30 || jumpInProgress || gameOver) return;
-
-  if (diff > 0) {
-    jumpHeroUp();
-  } else {
-    jumpHeroDown();
-  }
-}
-
 function jumpHeroUp() {
+  if (jumpInProgress) return;
+
   jumpInProgress = true;
 
   heroes.style.transition = "top 0.3s";
-  const currentTop = parseInt(heroes.style.top || "200");
-  heroes.style.top = `${currentTop - 30}px`;
+
+  const computedTop = window.getComputedStyle(heroes).top;
+  const currentTop = parseFloat(computedTop);
+
+  heroes.style.top = `${currentTop - 130}px`;
 
   setTimeout(() => {
-    heroes.style.top = `25%`;
-    jumpInProgress = false;
-  }, 300);
-}
-
-function jumpHeroDown() {
-  jumpInProgress = true;
-
-  heroes.style.transition = "top 0.3s";
-  const currentTop = parseInt(heroes.style.top || "300");
-  heroes.style.top = `${currentTop + 100}px`;
-
-  setTimeout(() => {
-    heroes.style.top = `25%`;
+    heroes.style.top = computedTop;
     jumpInProgress = false;
   }, 300);
 }
 
 secondEle.addEventListener("click", jumpHeroUp);
-
-secondEle.addEventListener("dblclick", jumpHeroDown);
 
 let backgroundOffset = 0;
 
@@ -246,34 +232,67 @@ function endGame() {
   threedEle.classList.remove("hidden");
   secondEle.classList.add("hidden");
 }
-function playAgain() {
-  let gamer = localStorage.getItem("user");
-  gamerChoose(`${gamer}`);
+playAgain.addEventListener("click", playAgains);
+
+function playAgains() {
+  playGames();
   score = 0;
   currentTimer = 20;
-  console.log(gamer);
   updateScore();
+  console.log("jjjjj");
+
   timeEle.textContent = currentTimer;
+  firstEle.classList.remove("hidden");
+  chooseGamerEle.classList.remove("hidden");
+  threedEle.classList.add("hidden");
+
   gameOver = false;
   backgroundOffset = 0;
   backgroundEle.style.transform = `translateX(0px)`;
-  animateBackground();
+
+  userInteracted = false;
+  autoStartCurrent = false;
+
+  setTimeout(() => {
+    if (!userInteracted) {
+      playGames();
+
+      setTimeout(() => {
+        if (!autoStartCurrent) {
+          gamerChoose(`${gamerLocal}`);
+        }
+      }, 4000);
+    }
+  }, 4000);
 }
-window.addEventListener("resize", () => {
+
+function resizeHandler() {
   const width = window.innerWidth;
   if (width < 400) {
     maxWidth = 10;
   } else {
     maxWidth = 800;
   }
+}
+
+window.addEventListener("resize", resizeHandler);
+
+resizeHandler();
+let userInteracted = false;
+
+playGameEle.addEventListener("click", () => {
+  userInteracted = true;
+  playGames();
 });
 
-document.addEventListener("keydown", (e) => {
-  if (gameOver || jumpInProgress) return;
+setTimeout(() => {
+  if (!userInteracted) {
+    playGames();
 
-  if (e.key === "ArrowUp") {
-    jumpHeroUp();
-  } else if (e.key === "ArrowDown") {
-    jumpHeroDown();
+    setTimeout(() => {
+      if (!autoStartCurrent) {
+        gamerChoose(`${gamerLocal}`);
+      }
+    }, 4000);
   }
-});
+}, 4000);

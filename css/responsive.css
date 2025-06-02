@@ -14,4 +14,19 @@
   .swipe {
     display: none;
   }
+  .ends {
+    padding-top: 20px;
+  }
+  .choose-gamer {
+    padding-top: 20px;
+  }
+  .start-game {
+    padding-top: 20px;
+  }
+  .atr-logo {
+    margin-top: 0;
+  }
+  .atrs {
+    top: 20px;
+  }
 }

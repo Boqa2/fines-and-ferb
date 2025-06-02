@@ -154,7 +154,7 @@ body {
 }
 .g-logo {
   width: 100%;
-  height: 10%;
+  height: 16%;
   display: flex;
   justify-content: center;
 }
@@ -173,25 +173,25 @@ body {
   transition: all 0.2s ease-in;
   position: relative;
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 
 .phines {
   left: -70px;
-  top: 40px;
+  top: 20px;
 }
 .ferb {
   left: 67px;
-  top: -10px;
+  top: -40px;
 }
 .candace {
   left: -70px;
-  top: -50px;
+  top: -70px;
 }
 .agent-p {
   left: 60px;
-  top: -60px;
+  top: -90px;
 }
 .second {
   position: relative;
@@ -252,12 +252,12 @@ body {
   position: relative;
 }
 .herois {
-  width: 30%;
-  height: 46%;
+  width: 28%;
+  height: 40%;
   position: absolute;
-  top: 25%;
+  top: 50%;
   left: 10%;
-  transition: bottom 0.3s ease, left 0.3s ease;
+  transition: all 0.2s ease;
 }
 .hero {
   width: 100%;
@@ -269,6 +269,7 @@ body {
   position: absolute;
   left: 45%;
   top: 30%;
+  transform: scale(1);
   z-index: 10;
   transition: left 0.02s linear;
 }
@@ -336,6 +337,11 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
+.point.fade-out {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.4s ease-out;
+}
 .btns {
   background: rgb(255, 207, 112);
   width: 35%;
@@ -385,6 +391,15 @@ video {
 .character {
   font-size: 30px;
   font-family: "ccVarite";
+}
+.ad {
+  text-align: center;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  opacity: 0.6;
+  font-family: sans-serif;
+  transform: translateX(-50%);
 }
 .hidden {
   display: none;
