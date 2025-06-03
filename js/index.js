@@ -62,6 +62,7 @@ const points = [
   "paket.png",
   "zebra.png",
   "balls.png",
+  "Character.png",
 ];
 
 function playGames() {
