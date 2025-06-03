@@ -30,3 +30,157 @@
     top: 20px;
   }
 }
+
+@media (max-height: 400px) {
+  .phone {
+    width: 800px;
+    height: 100%;
+    border-radius: 0px;
+    border: 0;
+  }
+  .screen {
+    border-radius: 0;
+  }
+  .notch {
+    display: none;
+  }
+  .swipe {
+    display: none;
+  }
+  .start-game {
+    height: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    background: url("../assets/image/back.png") top/cover no-repeat;
+  }
+
+  .wid {
+    height: 50%;
+    width: 40%;
+  }
+  .wid > div {
+    width: 100%;
+  }
+  .content-logo {
+    height: 30%;
+    width: 40%;
+  }
+  .logo-type {
+    width: 40%;
+  }
+  .hidden {
+    display: none;
+  }
+  .choose-gamer {
+    width: 100%;
+    padding-top: 20px;
+    flex-direction: row;
+    background: url("../assets/image/backWer.png") top/cover no-repeat;
+  }
+  .gamers {
+    width: 30%;
+    height: 30%;
+  }
+
+  .wis {
+    order: 1;
+    width: 50%;
+    text-align: center;
+    height: 100%;
+    justify-content: center;
+  }
+  .contn-gamer {
+    order: 0;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+  }
+  .g-logo {
+    width: 100%;
+    height: 30%;
+  }
+  .g-logo > img {
+    width: 50%;
+  }
+  .t {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .character {
+    width: 60%;
+  }
+  .agent-p {
+    top: -122%;
+    left: 150%;
+    height: 132%;
+  }
+  .ferb {
+    left: 130%;
+    height: 133%;
+    top: -60%;
+  }
+  .candace {
+    left: 40%;
+  }
+  .second {
+    pointer-events: auto;
+  }
+  .phines {
+    left: 30%;
+    top: -10%;
+    height: 114%;
+  }
+  .atrs {
+    width: 100%;
+    margin-top: 0;
+    max-width: 100%;
+  }
+  .atr-logo {
+    margin-top: 0;
+    width: 10%;
+  }
+  .game-content {
+    height: 70%;
+  }
+  .herois {
+    width: 11%;
+    height: 45%;
+    top: 50%;
+  }
+  .game {
+    padding-bottom: 0;
+  }
+  .background {
+    width: 250%;
+    left: -40px;
+  }
+  .ends {
+    align-items: flex-end;
+    padding-top: 20px;
+    background: url("../assets/image/back.png") top/cover no-repeat;
+    justify-content: start;
+    gap: 23%;
+  }
+  .contnent-logo {
+    width: 40%;
+  }
+  .content {
+    width: 40%;
+    height: 40%;
+  }
+  .cont-score > p {
+    font-size: 16px;
+    padding: 0 44px;
+    margin-bottom: 20px;
+  }
+  .i {
+    margin-bottom: 20px;
+  }
+  .btn-volume {
+    left: 10%;
+  }
+}

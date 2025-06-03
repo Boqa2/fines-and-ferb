@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, maximum-scale=1, initial-scale=1"
+    />
     <title>Document</title>
     <link rel="stylesheet" href="css/index.css" />
     <script src="js/index.js" defer></script>
@@ -17,19 +20,17 @@
     <div class="phone">
       <div class="notch"></div>
       <div class="screen">
-        <div class="vid hidden">
-          <span onclick="" class="btn-volume">
-            <i class="bi bi-volume-mute-fill"></i>
+        <div class="vid ">
+          <span  class="btn-volume">
+            <i class="bi bi-volume-up-fill"></i>
           </span>
           <video
             muted
-            loop
-            autoplay
             class="video"
             src="assets/video/vertical.mp4"
           ></video>
         </div>
-        <div class="first">
+        <div class="first hidden">
           <div class="start-game">
             <div class="content-logo">
               <img
@@ -57,39 +58,55 @@
             </div>
           </div>
           <div class="choose-gamer hidden">
-            <div class="g-logo">
-              <img src="assets/image/PAF_S5_LOGO.png" alt="" />
+            <div class="wis">
+              <div class="g-logo">
+                <img src="assets/image/PAF_S5_LOGO.png" alt="" />
+              </div>
+              <div class="t">
+                <p class="character">Choose Your Character!</p>
+              </div>
             </div>
-            <div>
-              <p class="character">Choose Your Character!</p>
-            </div>
-            <div
-              onclick="gamerChoose('phines')"
-              class="gamers"
-              data-persons="phines"
-            >
-              <img class="imgs phines" src="assets/image/Phineas.png" alt="" />
-            </div>
-            <div
-              onclick="gamerChoose('ferb')"
-              class="gamers"
-              data-persons="ferb"
-            >
-              <img class="imgs ferb" src="assets/image/ferb.png" alt="" />
-            </div>
-            <div
-              onclick="gamerChoose('candice')"
-              class="gamers"
-              data-persons="candice"
-            >
-              <img class="imgs candace" src="assets/image/Candace.png" alt="" />
-            </div>
-            <div
-              onclick="gamerChoose('perri')"
-              class="gamers"
-              data-persons="agent-p"
-            >
-              <img class="imgs agent-p" src="assets/image/Agent P.png" alt="" />
+            <div class="contn-gamer">
+              <div
+                onclick="gamerChoose('phines')"
+                class="gamers"
+                data-persons="phines"
+              >
+                <img
+                  class="imgs phines"
+                  src="assets/image/Phineas.png"
+                  alt=""
+                />
+              </div>
+              <div
+                onclick="gamerChoose('ferb')"
+                class="gamers"
+                data-persons="ferb"
+              >
+                <img class="imgs ferb" src="assets/image/ferb.png" alt="" />
+              </div>
+              <div
+                onclick="gamerChoose('candice')"
+                class="gamers"
+                data-persons="candice"
+              >
+                <img
+                  class="imgs candace"
+                  src="assets/image/Candace.png"
+                  alt=""
+                />
+              </div>
+              <div
+                onclick="gamerChoose('perri')"
+                class="gamers"
+                data-persons="agent-p"
+              >
+                <img
+                  class="imgs agent-p"
+                  src="assets/image/Agent P.png"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </div>

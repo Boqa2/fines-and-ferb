@@ -17,6 +17,7 @@ const timeEle = document.querySelector(".timer");
 const scoreEle = document.querySelectorAll(".score");
 const gameContentEle = document.querySelector(".game-content");
 const playAgain = document.querySelector(".play-again");
+const volume = document.querySelector(".btn-volume");
 
 let currentPosition = false;
 let timerInterval;
@@ -28,6 +29,9 @@ let pointSpawnInterval;
 let maxWidth = 900;
 let gamerLocal = localStorage.getItem("user");
 let autoStartCurrent = false;
+let intervalForSpawn = 1300;
+let timing = false;
+let speed = 2;
 
 const activePoints = [];
 
@@ -83,8 +87,8 @@ function gamerChoose(gamer) {
     case "perri":
       heroEle.src = `assets/image/${chHero[3].source[1]}`;
       backgroundEle.src = `assets/image/longTower.png`;
-      heroes.style.width = "23%";
-      heroes.style.height = "31%";
+      heroes.style.width = "13%";
+      heroes.style.height = "36%";
       break;
     default:
       console.log("Unknown character");
@@ -114,7 +118,7 @@ function gamerChoose(gamer) {
 
   pointSpawnInterval = setInterval(() => {
     if (!gameOver) createMovingPoint();
-  }, 1300);
+  }, intervalForSpawn);
 }
 
 function createMovingPoint() {
@@ -142,13 +146,18 @@ function movePointLeft(point) {
   function frame() {
     if (gameOver) return;
 
-    posX -= 2;
+    posX -= speed;
     frameCount++;
 
-    const waveY = 30 * Math.sin(frameCount * 0.05); // колебание вверх-вниз
+    const waveY = 30 * Math.sin(frameCount * 0.05);
 
-    point.style.left = `${posX - maxWidth}px`;
-    point.style.transform = `translateY(${waveY}px)`; // колебание
+    if (timing) {
+      point.style.left = `${posX}px`;
+    } else {
+      point.style.left = `${posX - maxWidth}px`;
+    }
+
+    point.style.transform = `translateY(${waveY}px)`;
 
     checkPointCollision(point);
 
@@ -199,17 +208,23 @@ function jumpHeroUp() {
 
   jumpInProgress = true;
 
-  heroes.style.transition = "top 0.3s";
+  const jumpHeight = 130;
+  const jumpDuration = 300;
+
+  heroes.style.transition = `top ${jumpDuration}ms`;
 
   const computedTop = window.getComputedStyle(heroes).top;
   const currentTop = parseFloat(computedTop);
+  const newTop = currentTop - jumpHeight;
 
-  heroes.style.top = `${currentTop - 130}px`;
+  heroes.style.top = `${newTop}px`;
 
   setTimeout(() => {
-    heroes.style.top = computedTop;
-    jumpInProgress = false;
-  }, 300);
+    heroes.style.top = `${currentTop}px`;
+    setTimeout(() => {
+      jumpInProgress = false;
+    }, jumpDuration);
+  }, jumpDuration);
 }
 
 secondEle.addEventListener("click", jumpHeroUp);
@@ -267,11 +282,24 @@ function playAgains() {
 }
 
 function resizeHandler() {
+  intervalForSpawn = 2200;
+  const height = window.innerHeight;
   const width = window.innerWidth;
   if (width < 400) {
     maxWidth = 10;
+    speed = 2;
+    intervalForSpawn = 1300;
+    videoEle.src = "assets/video/vertical.mp4";
+  } else if (height < 400) {
+    intervalForSpawn = 3000;
+    timing = true;
+    videoEle.src = "assets/video/horizontal.mp4";
+    speed = 3;
   } else {
     maxWidth = 800;
+    speed = 2.1;
+    intervalForSpawn = 1300;
+    videoEle.src = "assets/video/vertical.mp4";
   }
 }
 
@@ -285,14 +313,36 @@ playGameEle.addEventListener("click", () => {
   playGames();
 });
 
-setTimeout(() => {
-  if (!userInteracted) {
-    playGames();
-
-    setTimeout(() => {
-      if (!autoStartCurrent) {
-        gamerChoose(`${gamerLocal}`);
-      }
-    }, 4000);
+function volumeUpDown() {
+  let mutedVideo = videoEle.muted;
+  if (!mutedVideo) {
+    videoEle.muted = true;
+    volume.innerHTML = `<i class="bi bi-volume-mute-fill"></i>`;
+  } else {
+    volume.innerHTML = `<i class="bi bi-volume-up-fill"></i>`;
+    videoEle.muted = false;
   }
-}, 4000);
+}
+document.addEventListener("DOMContentLoaded", () => {
+  videoEle.play();
+});
+videoEle.addEventListener("ended", () => {
+  const parentVideo = videoEle.parentElement;
+  parentVideo.classList.add("hidden");
+  firstEle.classList.remove("hidden");
+  videoEle.pause();
+
+  setTimeout(() => {
+    if (!userInteracted) {
+      playGames();
+
+      setTimeout(() => {
+        if (!autoStartCurrent && gamerLocal) {
+          gamerChoose(gamerLocal);
+        }
+      }, 4000);
+    }
+  }, 4000);
+});
+
+volume.addEventListener("click", volumeUpDown);
