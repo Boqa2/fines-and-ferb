@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, maximum-scale=1, initial-scale=1"
     />
-    <title>Document</title>
+    <title>Phines & Ferb</title>
     <link rel="stylesheet" href="css/index.css" />
     <script src="js/index.js" defer></script>
     <link
@@ -15,20 +15,29 @@
     />
     <link rel="icon" href="assets/image/PAF_S5_LOGO.png" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/image/longer.jpg"
+      type="image/webp"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/image/longtover.png"
+      type="image/webp"
+    />
+    <link rel="preload" as="image" href="assets/image/ferbs.png" />
   </head>
   <body>
     <div class="phone">
       <div class="notch"></div>
       <div class="screen">
-        <div class="vid ">
-          <span  class="btn-volume">
+        <div class="vid">
+          <span class="btn-volume">
             <i class="bi bi-volume-mute-fill"></i>
           </span>
-          <video
-            muted
-            class="video"
-            src="assets/video/vertical.mp4"
-          ></video>
+          <video muted class="video" src="assets/video/vertical.mp4"></video>
         </div>
         <div class="first hidden">
           <div class="start-game">
@@ -125,7 +134,12 @@
             </div>
           </div>
           <div class="game">
-            <img class="background" src="assets/image/longer.jpg" alt="" />
+            <img
+              class="background"
+              src="assets/image/longer.jpg"
+              alt="Background"
+              loading="lazy"
+            />
             <div class="game-content">
               <div class="herois">
                 <img

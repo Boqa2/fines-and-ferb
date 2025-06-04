@@ -87,7 +87,7 @@ function gamerChoose(gamer) {
       break;
     case "perri":
       heroEle.src = `assets/image/${chHero[3].source[1]}`;
-      backgroundEle.src = `assets/image/longTower.png`;
+      backgroundEle.src = `assets/image/longtover.png`;
       heroes.style.width = "13%";
       heroes.style.height = "36%";
       break;
@@ -130,7 +130,8 @@ function createMovingPoint() {
   pointImg.classList.add("point");
   pointImg.style.position = "absolute";
   pointImg.style.top = `${Math.random() * (window.innerHeight * 0.01)}px`;
-  pointImg.style.left = `${window.innerWidth}px`;
+  const gameContentRect = gameContentEle.getBoundingClientRect();
+  pointImg.style.left = `${gameContentRect.right - 80}px`; // 80 — ширина поинта
   pointImg.style.width = "80px";
   pointImg.style.height = "70px";
 
@@ -152,11 +153,7 @@ function movePointLeft(point) {
 
     const waveY = 30 * Math.sin(frameCount * 0.05);
 
-    if (timing) {
-      point.style.left = `${posX}px`;
-    } else {
-      point.style.left = `${posX - maxWidth}px`;
-    }
+    point.style.left = `${posX}px`;
 
     point.style.transform = `translateY(${waveY}px)`;
 

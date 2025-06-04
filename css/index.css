@@ -241,6 +241,7 @@ body {
 .background {
   height: 100%;
   position: absolute;
+  will-change: transform;
   top: 0;
   left: -100px;
   z-index: -1;
@@ -403,14 +404,13 @@ video {
   font-family: sans-serif;
   transform: translateX(-50%);
 }
-.wis{
+.wis {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
-.contn-gamer{
+.contn-gamer {
   width: 100%;
   position: relative;
   display: flex;
