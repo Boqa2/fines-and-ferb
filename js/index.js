@@ -29,25 +29,17 @@ let pointSpawnInterval;
 let maxWidth = 900;
 let gamerLocal = localStorage.getItem("user");
 let autoStartCurrent = false;
-let intervalForSpawn = 1300;
+let intervalForSpawn = 1000;
 let timing = false;
-let speed = 2;
+let speed = 2.3;
 
 const activePoints = [];
 
 const chHero = [
   { name: "candice", source: "candice.png" },
   { name: "ferb", source: "ferbs.png" },
-  { name: "phines", source: "phines.png" },
-  {
-    name: "perri",
-    source: {
-      1: "perri1.png",
-      2: "perri3.png",
-      3: "perri4.png",
-      4: "perri2.png",
-    },
-  },
+  { name: "phines", source: "phines.webp" },
+  { name: "perri", source: "perri3.png" },
 ];
 
 const points = [
@@ -58,9 +50,8 @@ const points = [
   "jackhammer.png",
   "Momo.png",
   "Klimpaloon.png",
-  "phone.png",
+  "phone.webp",
   "paket.png",
-  "zebra.png",
   "balls.png",
   "Character.png",
 ];
@@ -75,19 +66,19 @@ function gamerChoose(gamer) {
   switch (gamer) {
     case "candice":
       heroEle.src = `assets/image/${chHero[0].source}`;
-      backgroundEle.src = `assets/image/longer.jpg`;
+      backgroundEle.src = `assets/image/bacweb.webp`;
       break;
     case "ferb":
       heroEle.src = `assets/image/${chHero[1].source}`;
-      backgroundEle.src = `assets/image/longer.jpg`;
+      backgroundEle.src = `assets/image/bacweb.webp`;
       break;
     case "phines":
       heroEle.src = `assets/image/${chHero[2].source}`;
-      backgroundEle.src = `assets/image/longer.jpg`;
+      backgroundEle.src = `assets/image/bacweb.webp`;
       break;
     case "perri":
-      heroEle.src = `assets/image/${chHero[3].source[1]}`;
-      backgroundEle.src = `assets/image/longtover.png`;
+      heroEle.src = `assets/image/${chHero[3].source}`;
+      backgroundEle.src = `assets/image/longtover.webp`;
       heroes.style.width = "13%";
       heroes.style.height = "36%";
       break;
@@ -131,7 +122,7 @@ function createMovingPoint() {
   pointImg.style.position = "absolute";
   pointImg.style.top = `${Math.random() * (window.innerHeight * 0.01)}px`;
   const gameContentRect = gameContentEle.getBoundingClientRect();
-  pointImg.style.left = `${gameContentRect.right - 80}px`; // 80 — ширина поинта
+  pointImg.style.left = `${gameContentEle.clientWidth - 10}px`;
   pointImg.style.width = "80px";
   pointImg.style.height = "70px";
 
@@ -153,13 +144,13 @@ function movePointLeft(point) {
 
     const waveY = 30 * Math.sin(frameCount * 0.05);
 
-    point.style.left = `${posX}px`;
+    point.style.left = `${posX + 10}px`;
 
     point.style.transform = `translateY(${waveY}px)`;
 
     checkPointCollision(point);
 
-    if (posX < -60) {
+    if (posX < -100) {
       point.remove();
       const index = activePoints.indexOf(point);
       if (index > -1) activePoints.splice(index, 1);
@@ -280,22 +271,22 @@ function playAgains() {
 }
 
 function resizeHandler() {
-  intervalForSpawn = 2200;
   const height = window.innerHeight;
   const width = window.innerWidth;
   if (width < 400) {
-    maxWidth = 10;
     speed = 2;
     intervalForSpawn = 1300;
+    videoEle.play();
     videoEle.src = "assets/video/vertical.mp4";
   } else if (height < 400) {
     intervalForSpawn = 3000;
+    videoEle.play();
     timing = true;
     videoEle.src = "assets/video/horizontal.mp4";
     speed = 3;
   } else {
-    maxWidth = 800;
     speed = 2.1;
+    videoEle.play();
     intervalForSpawn = 1300;
     videoEle.src = "assets/video/vertical.mp4";
   }
