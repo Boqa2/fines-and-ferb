@@ -54,7 +54,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: end;
-    background: url("../assets/image/back.png") top/cover no-repeat;
+    background: url("../assets/image/back.jpg") top/cover no-repeat;
   }
 
   .wid {
@@ -78,7 +78,7 @@
     width: 100%;
     padding-top: 20px;
     flex-direction: row;
-    background: url("../assets/image/backWer.png") top/cover no-repeat;
+    background: url("../assets/image/backWer.webp") top/cover no-repeat;
   }
   .gamers {
     width: 30%;
@@ -161,7 +161,7 @@
   .ends {
     align-items: flex-end;
     padding-top: 20px;
-    background: url("../assets/image/back.png") top/cover no-repeat;
+    background: url("../assets/image/back.jpg") top/cover no-repeat;
     justify-content: start;
     gap: 23%;
   }

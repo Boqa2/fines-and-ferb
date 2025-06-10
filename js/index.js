@@ -164,7 +164,7 @@ function movePointLeft(point) {
 }
 
 function checkPointCollision(point) {
-  if (point.dataset.collected === "true") return; // уже собрана
+  if (point.dataset.collected === "true") return;
 
   const heroRect = heroEle.getBoundingClientRect();
   const pointRect = point.getBoundingClientRect();
@@ -175,7 +175,7 @@ function checkPointCollision(point) {
     heroRect.right > pointRect.left &&
     heroRect.left < pointRect.right
   ) {
-    point.dataset.collected = "true"; // помечаем как собранную
+    point.dataset.collected = "true";
     point.classList.add("fade-out");
 
     setTimeout(() => point.remove(), 300);
@@ -223,7 +223,7 @@ let backgroundOffset = 0;
 function animateBackground() {
   if (gameOver) return;
 
-  backgroundOffset -= 0.8;
+  backgroundOffset -= 0.7;
   backgroundEle.style.transform = `translateX(${backgroundOffset}px)`;
 
   requestAnimationFrame(animateBackground);
@@ -243,8 +243,6 @@ function playAgains() {
   score = 0;
   currentTimer = 20;
   updateScore();
-  console.log("jjjjj");
-
   timeEle.textContent = currentTimer;
   firstEle.classList.remove("hidden");
   chooseGamerEle.classList.remove("hidden");
@@ -313,7 +311,9 @@ function volumeUpDown() {
   }
 }
 document.addEventListener("DOMContentLoaded", () => {
-  videoEle.play();
+  setTimeout(() => {
+    videoEle.play();
+  }, 2000);
 });
 videoEle.addEventListener("ended", () => {
   const parentVideo = videoEle.parentElement;
