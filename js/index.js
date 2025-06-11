@@ -66,19 +66,19 @@ function gamerChoose(gamer) {
   switch (gamer) {
     case "candice":
       heroEle.src = `assets/image/${chHero[0].source}`;
-      backgroundEle.src = `assets/image/bacweb.webp`;
+      backgroundEle.src = `assets/image/bacweb1.png`;
       break;
     case "ferb":
       heroEle.src = `assets/image/${chHero[1].source}`;
-      backgroundEle.src = `assets/image/bacweb.webp`;
+      backgroundEle.src = `assets/image/bacweb1.png`;
       break;
     case "phines":
       heroEle.src = `assets/image/${chHero[2].source}`;
-      backgroundEle.src = `assets/image/bacweb.webp`;
+      backgroundEle.src = `assets/image/bacweb1.png`;
       break;
     case "perri":
       heroEle.src = `assets/image/${chHero[3].source}`;
-      backgroundEle.src = `assets/image/longtover.webp`;
+      backgroundEle.src = `assets/image/longtover.png`;
       heroes.style.width = "13%";
       heroes.style.height = "36%";
       break;
